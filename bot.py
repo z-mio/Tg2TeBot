@@ -128,6 +128,7 @@ async def post(_, msg: Message):
         return
     text += f"\n\n> [原文]({m.link})"
     await send_talk(text)
+    await m.react("👌")
     logger.success(f"已发送：{m.link}")
 
 
