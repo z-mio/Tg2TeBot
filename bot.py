@@ -26,7 +26,7 @@ cid = getenv("CID")
 lsky_url = getenv("LSKY_URL")
 lsky_token = getenv("LSKY_TOKEN")
 lsky_version: Literal["free", "plus"] = getenv("LSKY_VERSION")
-lsky_storage_id = getenv("LSKY_STORAGE_ID")
+lsky_storage_id = int(getenv("LSKY_STORAGE_ID"))
 
 if proxy_url := getenv("PROXY", None):
     parsed_url = urlparse(proxy_url)
@@ -92,7 +92,7 @@ async def upload_img_plus(path: str):
             f"{lsky_url}/api/v2/upload",
             headers={"Authorization": f"Bearer {lsky_token}"},
             files={"file": file},
-            storage_id=lsky_storage_id,
+            data={"storage_id": lsky_storage_id},
         )
         response.raise_for_status()
         data = response.json()
